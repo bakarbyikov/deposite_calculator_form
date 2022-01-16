@@ -47,45 +47,32 @@
     $term = $request["term"];
 
     $last_month_sum = $request["sum"]; //sumN-1
-    $cur_date = getDate(strtotime($request["startDate"]));
+    $cur_date = date_create($request["startDate"]);
 
-    // $settlement_date = date_create("$cur_date['year']-$cur_date['month']-")
+    $days_in_cur_month = $cur_date->format(t);  //daysN
+    $days_in_cur_year = cal_days_in_year($cur_date->format(Y));  //daysY
 
-    $year = $cur_date['year'];
-    $day = $cur_date['day'];
-    $days_in_cur_month = cal_days_in_month( //daysN
-      CAL_GREGORIAN,
-      $cur_date['mon'], 
-      $cur_date['year']);
-    $days_in_cur_year = cal_days_in_year($cur_date['year']);  //daysY
-
-    // echo "percent: $percent ";
-    // echo "days_in_cur_month: $days_in_cur_month ";
-    // echo "percdays_in_cur_yearent: $days_in_cur_year ";
 
     for($counted_months=0; $counted_months < $term; $counted_months++){
       $last_month_sum = $last_month_sum 
         + ($last_month_sum + $sumAdd) 
           * $days_in_cur_month 
           * ($percent / $days_in_cur_year);
+
       $sumAdd = $request["sumAdd"];
-      $days_in_cur_month = cal_days_in_month( //daysN
-        CAL_GREGORIAN,
-        $cur_date['mon']+1%12+1, 
-        $cur_date['year']);
+
+      $cur_date = $cur_date->modify('+1 month');
+      $days_in_cur_month = $cur_date->format(t);  //daysN
+      $days_in_cur_year = cal_days_in_year($cur_date->format(Y));  //daysY
     };
 
-    return [ 'sum' => $last_month_sum, ];
-  }
+    return [ 'sum' => ceil($last_month_sum) ];
+  }  
 
 
-  // $request_json = '{"startDate":"2021-09-04","term":"10","sum":"10000","percent":"10"}';
-  // $request = json_decode($request_json, true);
-
-  // print_r($request);
-
-  // json_encode(calculate_deposit($request));
-  
+  $request_json = '{"startDate":"2021-09-04","term":"60","sum":"10000","percent":"10"}';
+  $request = json_decode($request_json, true);
+  calculate_deposit($request);
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $request_json = file_get_contents('php://input');
