@@ -5,9 +5,8 @@ calculateButton.addEventListener("click", () => {
 });
 
 function collect_data(){
-
-    var inputs = document.querySelectorAll(".input_block");
-    data = {}
+    let inputs = document.querySelectorAll(".input_block");
+    let data = {};
 
     inputs.forEach(inputs => {
         data[inputs.querySelector("input").name] = inputs.querySelector("input").value;
@@ -29,6 +28,6 @@ function onCalculateClick(){
 
 function onCalculdated(response){
     document.querySelector(".result h1").innerHTML = response["data"]["sum"];
-    console.log("I got response!")
-    console.log(response);
+    // console.log("I got response!")
+    // console.log(response);
 };

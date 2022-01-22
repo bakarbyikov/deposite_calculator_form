@@ -71,9 +71,9 @@
     return [ 'sum' => round($last_month_sum) ];
   };
 
-  $request_json = '{"startDate":"2022-09-04","term":"1","sum":"10000","percent":"10","sumAdd":"0"}';
-  $request = json_decode($request_json, true);
-  calculate_deposit($request);
+  // $request_json = '{"startDate":"2022-09-04","term":"1","sum":"10000","percent":"10","sumAdd":"0"}';
+  // $request = json_decode($request_json, true);
+  // calculate_deposit($request);
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $request_json = file_get_contents('php://input');
