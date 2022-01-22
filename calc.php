@@ -49,8 +49,8 @@
     $last_month_sum = $request["sum"]; //sumN-1
     $cur_date = date_create($request["startDate"]);
 
-    $days_in_cur_month = $cur_date->format(t);  //daysN
-    $days_in_cur_year = cal_days_in_year($cur_date->format(Y));  //daysY
+    $days_in_cur_month = $cur_date->format("t");  //daysN
+    $days_in_cur_year = cal_days_in_year($cur_date->format("Y"));  //daysY
 
 
     for($counted_months=0; $counted_months < $term; $counted_months++){
@@ -59,18 +59,19 @@
           * $days_in_cur_month 
           * ($percent / $days_in_cur_year);
 
+      // $lol = $last_month_sum + $sumAdd;
+      // printf("$lol\n");
       $sumAdd = $request["sumAdd"];
 
       $cur_date = $cur_date->modify('+1 month');
-      $days_in_cur_month = $cur_date->format(t);  //daysN
-      $days_in_cur_year = cal_days_in_year($cur_date->format(Y));  //daysY
+      $days_in_cur_month = $cur_date->format("t");  //daysN
+      $days_in_cur_year = cal_days_in_year($cur_date->format("Y"));  //daysY
     };
 
-    return [ 'sum' => ceil($last_month_sum) ];
-  }  
+    return [ 'sum' => round($last_month_sum) ];
+  };
 
-
-  $request_json = '{"startDate":"2021-09-04","term":"60","sum":"10000","percent":"10"}';
+  $request_json = '{"startDate":"2022-09-04","term":"1","sum":"10000","percent":"10","sumAdd":"0"}';
   $request = json_decode($request_json, true);
   calculate_deposit($request);
 
