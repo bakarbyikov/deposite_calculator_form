@@ -1,3 +1,6 @@
+flatpickr("#startDate", {});
+
+
 var calculateButton = document.querySelector(".calculate_button");
 
 calculateButton.addEventListener("click", () => {
