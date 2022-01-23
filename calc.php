@@ -20,7 +20,7 @@
       raise_error("SumAdd $sumAdd is invalid");
     };
     $percent = $request["percent"];
-    if ($percent < 0 or  $percent > 3000000){
+    if ($percent < 3 or  $percent > 100){
       raise_error("Percent $percent is invalid");
     };
   };
