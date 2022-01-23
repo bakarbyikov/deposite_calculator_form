@@ -1,11 +1,28 @@
 flatpickr("#startDate", {});
 
 
-var calculateButton = document.querySelector(".calculate_button");
+const calculateButton = document.querySelector(".calculate_button");
 
 calculateButton.addEventListener("click", () => {
     onCalculateClick();
 });
+
+
+const SumAddBlock = document.querySelector("#sumAddBlock");
+const isSumAddButton = document.querySelector("#isSumAdd");
+isSumAddButton.addEventListener("click", () => {
+    onSumAddClick();
+});
+
+function onSumAddClick(){
+    if (isSumAddButton.checked) {
+        SumAddBlock.style.display = "inline-block";
+    } else {
+        SumAddBlock.style.display = "none";
+        
+        SumAddBlock.querySelector("#sumAdd").value = 0;
+    }
+}
 
 function collect_data(){
     let inputs = document.querySelectorAll(".input_block");
